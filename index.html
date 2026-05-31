@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>ZS DarkRP — Chargement</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0f;
+    color: #e8e8f0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  canvas#bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.35;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    width: 620px;
+  }
+
+  .logo {
+    font-size: 72px;
+    font-weight: 900;
+    color: #00d4ff;
+    letter-spacing: 12px;
+    text-shadow: 0 0 40px rgba(0,212,255,0.6), 0 0 80px rgba(0,212,255,0.3);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: #707090;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-top: 6px;
+    margin-bottom: 50px;
+  }
+
+  .progress-wrap {
+    width: 100%;
+    height: 4px;
+    background: rgba(0,212,255,0.12);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #00d4ff, #00ff88);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.25s ease;
+    box-shadow: 0 0 12px rgba(0,212,255,0.8);
+  }
+
+  .progress-text {
+    font-size: 13px;
+    color: #707090;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+  .progress-text span { color: #00d4ff; font-weight: 600; }
+
+  .status {
+    font-size: 13px;
+    color: #9090b0;
+    margin-bottom: 14px;
+    height: 18px;
+  }
+
+  .file-dl {
+    font-size: 11px;
+    color: #404055;
+    height: 14px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  .server-info {
+    display: flex;
+    gap: 36px;
+    justify-content: center;
+    border-top: 1px solid rgba(0,212,255,0.1);
+    padding-top: 26px;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .info-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #00ff88;
+  }
+
+  .info-label {
+    font-size: 10px;
+    color: #505068;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .map-name {
+    margin-top: 20px;
+    font-size: 11px;
+    color: #404055;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .tip {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #505068;
+    z-index: 1;
+    text-align: center;
+    max-width: 720px;
+    white-space: nowrap;
+  }
+  .tip strong { color: #00d4ff; }
+
+  @keyframes pulse-glow {
+    0%, 100% { text-shadow: 0 0 40px rgba(0,212,255,0.6), 0 0 80px rgba(0,212,255,0.3); }
+    50%       { text-shadow: 0 0 60px rgba(0,212,255,0.9), 0 0 120px rgba(0,212,255,0.5); }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="container">
+  <div class="logo">ZS</div>
+  <div class="subtitle" id="subtitle">DarkRP — Rockford V5</div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <div class="progress-text">Téléchargement… <span id="pct">0</span>%</div>
+
+  <div class="status" id="status">Connexion au serveur…</div>
+  <div class="file-dl" id="fileDl">&nbsp;</div>
+
+  <div class="server-info">
+    <div class="info-item">
+      <div class="info-value" id="maxplayers">—</div>
+      <div class="info-label">Slots</div>
+    </div>
+    <div class="info-item">
+      <div class="info-value" id="gamemode">—</div>
+      <div class="info-label">Gamemode</div>
+    </div>
+  </div>
+
+  <div class="map-name" id="mapname">Carte : —</div>
+</div>
+
+<div class="tip">
+  <strong>I</strong> Inventaire &nbsp;·&nbsp;
+  <strong>P</strong> Téléphone &nbsp;·&nbsp;
+  <strong>F4</strong> Changer de métier &nbsp;·&nbsp;
+  <strong>F3</strong> Concessionnaire &nbsp;·&nbsp;
+  <strong>F1</strong> Menu admin
+</div>
+
+<script>
+// ── Particules fond ──────────────────────────────────────
+const canvas = document.getElementById('bg');
+const ctx    = canvas.getContext('2d');
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+const particles = Array.from({ length: 80 }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 1.4 + 0.3,
+  vx: (Math.random() - 0.5) * 0.28,
+  vy: (Math.random() - 0.5) * 0.28,
+  a: Math.random(),
+}));
+
+(function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const p of particles) {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0,212,255,${p.a * 0.55})`;
+    ctx.fill();
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ── State ─────────────────────────────────────────────────
+let filesTotal  = 0;
+let filesNeeded = 0;
+
+const bar      = document.getElementById('bar');
+const pct      = document.getElementById('pct');
+const statusEl = document.getElementById('status');
+const fileDlEl = document.getElementById('fileDl');
+
+function updateBar() {
+  if (filesTotal <= 0) return;
+  const done = filesTotal - filesNeeded;
+  const p    = Math.floor((done / filesTotal) * 100);
+  bar.style.width = p + '%';
+  pct.textContent = p;
+}
+
+// ── Callbacks GMod ────────────────────────────────────────
+// Appelé une fois au début : info serveur + joueur
+function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, language) {
+  document.getElementById('maxplayers').textContent = maxplayers || '—';
+  document.getElementById('gamemode').textContent   = gamemode   || '—';
+  document.getElementById('mapname').textContent    = 'Carte : ' + (mapname || '—');
+  document.getElementById('subtitle').textContent   = (servername || 'ZS DarkRP') + ' — ' + (mapname || '');
+}
+
+// Nombre total de fichiers à télécharger
+function SetFilesTotal(total) {
+  filesTotal = total;
+  updateBar();
+}
+
+// Fichiers restants à télécharger
+function SetFilesNeeded(needed) {
+  filesNeeded = needed;
+  updateBar();
+}
+
+// Nom du fichier en cours de téléchargement
+function DownloadingFile(fileName) {
+  fileDlEl.textContent = fileName || '';
+}
+
+// Changement d'étape de connexion (ex: "Starting Lua...")
+function SetStatusChanged(statusStr) {
+  statusEl.textContent = statusStr || '';
+}
+</script>
+</body>
+</html>
