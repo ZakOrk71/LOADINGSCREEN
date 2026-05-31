@@ -19,135 +19,123 @@
   }
 
   canvas#bg {
-    position: fixed;
-    top: 0; left: 0;
+    position: fixed; top: 0; left: 0;
     width: 100%; height: 100%;
-    z-index: 0;
-    opacity: 0.35;
+    z-index: 0; opacity: 0.35;
   }
 
   .container {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    width: 620px;
+    position: relative; z-index: 1;
+    text-align: center; width: 640px;
   }
 
+  /* ── Logo ── */
   .logo {
-    font-size: 72px;
-    font-weight: 900;
-    color: #00d4ff;
-    letter-spacing: 12px;
-    text-shadow: 0 0 40px rgba(0,212,255,0.6), 0 0 80px rgba(0,212,255,0.3);
-    animation: pulse-glow 2s ease-in-out infinite;
+    font-size: 80px; font-weight: 900;
+    color: #00d4ff; letter-spacing: 14px;
+    text-shadow: 0 0 40px rgba(0,212,255,.7), 0 0 80px rgba(0,212,255,.35);
+    animation: pulse-glow 2.4s ease-in-out infinite;
   }
-
   .subtitle {
-    font-size: 14px;
-    color: #707090;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    margin-top: 6px;
-    margin-bottom: 50px;
+    font-size: 13px; color: #606080;
+    letter-spacing: 5px; text-transform: uppercase;
+    margin-top: 4px; margin-bottom: 44px;
   }
+  .subtitle span { color: #00d4ff; }
 
+  /* ── Barre ── */
   .progress-wrap {
-    width: 100%;
-    height: 4px;
-    background: rgba(0,212,255,0.12);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 14px;
+    width: 100%; height: 3px;
+    background: rgba(0,212,255,.1);
+    border-radius: 4px; overflow: hidden;
+    margin-bottom: 10px;
   }
-
   .progress-bar {
     height: 100%;
     background: linear-gradient(90deg, #00d4ff, #00ff88);
-    border-radius: 4px;
-    width: 0%;
-    transition: width 0.25s ease;
-    box-shadow: 0 0 12px rgba(0,212,255,0.8);
+    border-radius: 4px; width: 0%;
+    transition: width .28s ease;
+    box-shadow: 0 0 14px rgba(0,212,255,.9);
   }
-
   .progress-text {
-    font-size: 13px;
-    color: #707090;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
+    font-size: 12px; color: #606080;
+    letter-spacing: 2px; margin-bottom: 6px;
   }
-  .progress-text span { color: #00d4ff; font-weight: 600; }
+  .progress-text span { color: #00d4ff; font-weight: 700; }
 
   .status {
-    font-size: 13px;
-    color: #9090b0;
-    margin-bottom: 14px;
-    height: 18px;
+    font-size: 13px; color: #8080a0;
+    margin-bottom: 8px; height: 17px;
   }
-
   .file-dl {
-    font-size: 11px;
-    color: #404055;
-    height: 14px;
-    margin-bottom: 40px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 100%;
+    font-size: 10px; color: #343448;
+    height: 13px; margin-bottom: 38px;
+    overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap; max-width: 100%;
   }
 
+  /* ── Infos serveur ── */
   .server-info {
-    display: flex;
-    gap: 36px;
+    display: flex; gap: 0;
     justify-content: center;
-    border-top: 1px solid rgba(0,212,255,0.1);
-    padding-top: 26px;
+    border-top: 1px solid rgba(0,212,255,.1);
+    padding-top: 24px; margin-bottom: 16px;
   }
-
   .info-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 5px;
+    padding: 0 28px;
+    border-right: 1px solid rgba(255,255,255,.05);
   }
-
+  .info-item:last-child { border-right: none; }
   .info-value {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 22px; font-weight: 700;
     color: #00ff88;
   }
-
+  .info-value.blue { color: #00d4ff; }
   .info-label {
-    font-size: 10px;
-    color: #505068;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    font-size: 9px; color: #404058;
+    letter-spacing: 2.5px; text-transform: uppercase;
   }
 
-  .map-name {
-    margin-top: 20px;
-    font-size: 11px;
-    color: #404055;
-    letter-spacing: 3px;
-    text-transform: uppercase;
+  .map-badge {
+    display: inline-block;
+    background: rgba(0,212,255,.07);
+    border: 1px solid rgba(0,212,255,.18);
+    border-radius: 20px; padding: 5px 18px;
+    font-size: 11px; color: #505075;
+    letter-spacing: 3px; text-transform: uppercase;
   }
+  .map-badge strong { color: #00d4ff; font-weight: 600; }
 
+  /* ── Tip ── */
   .tip {
-    position: fixed;
-    bottom: 22px;
-    left: 50%;
+    position: fixed; bottom: 20px; left: 50%;
     transform: translateX(-50%);
-    font-size: 12px;
-    color: #505068;
-    z-index: 1;
-    text-align: center;
-    max-width: 720px;
-    white-space: nowrap;
+    font-size: 11px; color: #3c3c58;
+    z-index: 1; text-align: center;
+    max-width: 780px; white-space: nowrap;
+    letter-spacing: .5px;
   }
   .tip strong { color: #00d4ff; }
+  .tip span { margin: 0 6px; color: #252535; }
+
+  /* ── Discord button ── */
+  .discord {
+    position: fixed; top: 18px; right: 22px;
+    z-index: 2; font-size: 11px;
+    color: #5865f2; letter-spacing: 1px;
+    text-decoration: none;
+    border: 1px solid rgba(88,101,242,.4);
+    border-radius: 6px; padding: 5px 14px;
+    background: rgba(88,101,242,.08);
+    transition: background .2s;
+  }
+  .discord:hover { background: rgba(88,101,242,.2); }
 
   @keyframes pulse-glow {
-    0%, 100% { text-shadow: 0 0 40px rgba(0,212,255,0.6), 0 0 80px rgba(0,212,255,0.3); }
-    50%       { text-shadow: 0 0 60px rgba(0,212,255,0.9), 0 0 120px rgba(0,212,255,0.5); }
+    0%,100% { text-shadow: 0 0 40px rgba(0,212,255,.7), 0 0 80px rgba(0,212,255,.35); }
+    50%      { text-shadow: 0 0 65px rgba(0,212,255,1),  0 0 130px rgba(0,212,255,.5); }
   }
 </style>
 </head>
@@ -157,61 +145,87 @@
 
 <div class="container">
   <div class="logo">ZS</div>
-  <div class="subtitle" id="subtitle">DarkRP — Rockford V2B</div>
+  <div class="subtitle" id="subtitle">DarkRP &nbsp;·&nbsp; <span id="mapname-inline">rockford-french-v5b</span></div>
 
   <div class="progress-wrap">
     <div class="progress-bar" id="bar"></div>
   </div>
   <div class="progress-text">Téléchargement… <span id="pct">0</span>%</div>
-
   <div class="status" id="status">Connexion au serveur…</div>
   <div class="file-dl" id="fileDl">&nbsp;</div>
 
   <div class="server-info">
     <div class="info-item">
-      <div class="info-value" id="maxplayers">—</div>
+      <div class="info-value blue" id="maxplayers">—</div>
       <div class="info-label">Slots</div>
     </div>
     <div class="info-item">
       <div class="info-value" id="gamemode">—</div>
       <div class="info-label">Gamemode</div>
     </div>
+    <div class="info-item">
+      <div class="info-value blue" id="lang">FR</div>
+      <div class="info-label">Langue</div>
+    </div>
   </div>
 
-  <div class="map-name" id="mapname">Carte : —</div>
+  <div class="map-badge">Carte : <strong id="mapname">rockford-french-v5b</strong></div>
 </div>
 
 <div class="tip">
-  <strong>I</strong> Inventaire &nbsp;·&nbsp;
-  <strong>P</strong> Téléphone &nbsp;·&nbsp;
-  <strong>F4</strong> Changer de métier &nbsp;·&nbsp;
-  <strong>F3</strong> Concessionnaire &nbsp;·&nbsp;
-  <strong>F1</strong> Menu admin
+  <strong>I</strong> Inventaire
+  <span>·</span> <strong>P</strong> Téléphone
+  <span>·</span> <strong>F4</strong> Métier
+  <span>·</span> <strong>F3</strong> Concessionnaire
+  <span>·</span> <strong>F1</strong> Admin
+  <span>·</span> <strong>C</strong> 3ème personne
+  <span>·</span> <strong>Z</strong> Accroupi lent
 </div>
 
 <script>
-// ── Particules fond ──────────────────────────────────────
+// ── Particules fond ────────────────────────────────────
 const canvas = document.getElementById('bg');
 const ctx    = canvas.getContext('2d');
-function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
 resize();
 window.addEventListener('resize', resize);
 
-const particles = Array.from({ length: 80 }, () => ({
-  x: Math.random() * canvas.width,
-  y: Math.random() * canvas.height,
-  r: Math.random() * 1.4 + 0.3,
-  vx: (Math.random() - 0.5) * 0.28,
-  vy: (Math.random() - 0.5) * 0.28,
-  a: Math.random(),
+const N = 100;
+const particles = Array.from({ length: N }, () => ({
+  x:  Math.random() * canvas.width,
+  y:  Math.random() * canvas.height,
+  r:  Math.random() * 1.5 + 0.2,
+  vx: (Math.random() - 0.5) * 0.22,
+  vy: (Math.random() - 0.5) * 0.22,
+  a:  Math.random() * 0.8 + 0.1,
 }));
+
+// Quelques lignes de connexion entre particules proches
+function drawLines() {
+  for (let i = 0; i < N; i++) {
+    for (let j = i + 1; j < N; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d  = Math.sqrt(dx*dx + dy*dy);
+      if (d < 100) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,212,255,${(1 - d/100) * 0.07})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+}
 
 (function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawLines();
   for (const p of particles) {
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(0,212,255,${p.a * 0.55})`;
+    ctx.fillStyle = `rgba(0,212,255,${p.a * 0.5})`;
     ctx.fill();
     p.x += p.vx; p.y += p.vy;
     if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
@@ -220,7 +234,7 @@ const particles = Array.from({ length: 80 }, () => ({
   requestAnimationFrame(draw);
 })();
 
-// ── State ─────────────────────────────────────────────────
+// ── État chargement ────────────────────────────────────
 let filesTotal  = 0;
 let filesNeeded = 0;
 
@@ -237,35 +251,27 @@ function updateBar() {
   pct.textContent = p;
 }
 
-// ── Callbacks GMod ────────────────────────────────────────
-// Appelé une fois au début : info serveur + joueur
+// ── Callbacks GMod ─────────────────────────────────────
 function GameDetails(servername, serverurl, mapname, maxplayers, steamid, gamemode, volume, language) {
   document.getElementById('maxplayers').textContent = maxplayers || '—';
-  document.getElementById('gamemode').textContent   = gamemode   || '—';
-  document.getElementById('mapname').textContent    = 'Carte : ' + (mapname || '—');
-  document.getElementById('subtitle').textContent   = (servername || 'ZS DarkRP') + ' — ' + (mapname || '');
+  document.getElementById('gamemode').textContent   = (gamemode  || 'DarkRP').replace(/darkrp/i, 'DarkRP');
+  if (language) document.getElementById('lang').textContent = language.toUpperCase();
+  const map = mapname || 'rockford-french-v5b';
+  document.getElementById('mapname').textContent        = map;
+  document.getElementById('mapname-inline').textContent = map;
+  document.getElementById('subtitle').innerHTML =
+    'DarkRP &nbsp;·&nbsp; <span id="mapname-inline">' + map + '</span>';
 }
 
-// Nombre total de fichiers à télécharger
-function SetFilesTotal(total) {
-  filesTotal = total;
-  updateBar();
-}
+function SetFilesTotal(total)   { filesTotal  = total;  updateBar(); }
+function SetFilesNeeded(needed) { filesNeeded = needed; updateBar(); }
 
-// Fichiers restants à télécharger
-function SetFilesNeeded(needed) {
-  filesNeeded = needed;
-  updateBar();
-}
-
-// Nom du fichier en cours de téléchargement
 function DownloadingFile(fileName) {
   fileDlEl.textContent = fileName || '';
 }
 
-// Changement d'étape de connexion (ex: "Starting Lua...")
-function SetStatusChanged(statusStr) {
-  statusEl.textContent = statusStr || '';
+function SetStatusChanged(s) {
+  if (s) statusEl.textContent = s;
 }
 </script>
 </body>
